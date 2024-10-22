@@ -1,0 +1,2 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Chaoem/Bu/refs/heads/main/Icon'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Chaoem/Bu/refs/heads/main/B'))()
