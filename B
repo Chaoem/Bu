@@ -1,4 +1,4 @@
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Chaoem/Bu/refs/heads/main/Icon'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Iamcutehehe/hehehe/refs/heads/main/graze.lua'))()
 --[[
  .____                  ________ ___.    _____                           __                
  |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
