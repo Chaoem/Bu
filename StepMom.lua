@@ -25,7 +25,7 @@ function library:Win(title)
     -- Main window (made wider to accommodate left/right columns)
     local main = Instance.new("Frame")
     main.Size = UDim2.new(0, 700, 0, 400) -- Increased width from 500 to 700
-    main.Position = UDim2.new(0.5, -300, 0.5, -240) -- Adjusted position
+    main.Position = UDim2.new(0.5, -350, 0.5, -200) -- Adjusted position
     main.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     main.BackgroundTransparency = 0.3
     main.BorderSizePixel = 0
