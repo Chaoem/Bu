@@ -712,14 +712,22 @@ function Library:AddWindows()
                 cffe.Text = cffe.Text or "Label Text"
 
                 local Label = Instance.new("Frame")
+                local UICorner_Label = Instance.new("UICorner")
+                local UIStroke_Label = Instance.new("UIStroke")
                 local LabelText = Instance.new("TextLabel")
 
                 Label.Name = "Label"
                 Label.Parent = Listed
-                Label.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                Label.BackgroundTransparency = 1.000
+                Label.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
                 Label.BorderSizePixel = 0
-                Label.Size = UDim2.new(1, 0, 0, 25)
+                Label.Size = UDim2.new(1, 0, 0, 30)
+
+                UICorner_Label.CornerRadius = UDim.new(0, 4)
+                UICorner_Label.Parent = Label
+
+                UIStroke_Label.Parent = Label
+                UIStroke_Label.Color = Color3.fromRGB(255, 255, 255)
+                UIStroke_Label.Transparency = 0.970
 
                 LabelText.Name = "LabelText"
                 LabelText.Parent = Label
@@ -729,7 +737,7 @@ function Library:AddWindows()
                 LabelText.Text = cffe.Text
                 LabelText.TextColor3 = Color3.fromRGB(200, 200, 200)
                 LabelText.TextSize = 13
-                LabelText.TextXAlignment = Enum.TextXAlignment.Left
+                LabelText.TextXAlignment = Enum.TextXAlignment.Center
                 LabelText.TextWrapped = true
             end
 
@@ -923,45 +931,6 @@ function Library:AddWindows()
     return TabFunc
 end
 
-function Library:SetTitle(title)
-    UI_CONFIG.UITitle = title
-    local existingUI = ParentGui:FindFirstChild("ScreenShit_Protected")
-    if existingUI and existingUI:FindFirstChild("AnDzGUI") then
-        local titleLabel = existingUI.AnDzGUI:FindFirstChild("TitleLabel")
-        if titleLabel then
-            titleLabel.Text = title
-        end
-    end
-end
-
-function Library:SetSubtitle(subtitle)
-    UI_CONFIG.UISubtitle = subtitle
-    local existingUI = ParentGui:FindFirstChild("ScreenShit_Protected")
-    if existingUI and existingUI:FindFirstChild("AnDzGUI") then
-        local subtitleLabel = existingUI.AnDzGUI:FindFirstChild("SubtitleLabel")
-        if subtitleLabel then
-            subtitleLabel.Text = subtitle
-        end
-    end
-end
-
-function Library:SetCredits(credits, visible)
-    UI_CONFIG.Credits = credits
-    if visible ~= nil then
-        UI_CONFIG.ShowCredits = visible
-    end
-    local existingUI = ParentGui:FindFirstChild("ScreenShit_Protected")
-    if existingUI and existingUI:FindFirstChild("AnDzGUI") then
-        local creditsLabel = existingUI.AnDzGUI:FindFirstChild("CreditsLabel")
-        if creditsLabel then
-            creditsLabel.Text = credits
-            if visible ~= nil then
-                creditsLabel.Visible = visible
-            end
-        end
-    end
-end
-
 function Library:SetLogo(AssetId)
     UI_CONFIG.LogoAssetId = AssetId
     
@@ -998,9 +967,7 @@ print("[Maru UI Modified with Labels] Loaded successfully!")
 print("Features:")
 print("✓ Respawn Protection - UI không mất khi chết")
 print("✓ Custom Logo Support - Dùng Library:SetLogo('rbxassetid://...')")
-print("✓ Title & Subtitle Labels - Library:SetTitle() và Library:SetSubtitle()")
-print("✓ Credits Label - Library:SetCredits('text', true/false)")
-print("✓ AddLabel() function trong sections")
+print("✓ AddLabel() function trong sections - Label full width")
 print("✓ Protected from deletion")
 
 return Library
