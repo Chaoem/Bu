@@ -10,11 +10,7 @@ local RunService = game:GetService("RunService")
 -- ============================================
 local UI_CONFIG = {
     LogoAssetId = "rbxassetid://116687528225948",
-    CloseButtonAssetId = "rbxassetid://77914344378314",
-    UITitle = "Maru Hub",
-    UISubtitle = "Premium Edition",
-    ShowCredits = true,
-    Credits = "Made by You"
+    CloseButtonAssetId = "rbxassetid://77914344378314"
 }
 
 -- ============================================
