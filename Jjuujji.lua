@@ -710,8 +710,6 @@ function Library:AddWindows()
             function Sec:AddLabel(cffe)
                 cffe = cffe or {}
                 cffe.Text = cffe.Text or "Label Text"
-                cffe.TextColor = cffe.TextColor or Color3.fromRGB(255, 255, 255)
-                cffe.TextSize = cffe.TextSize or 13
 
                 local Label = Instance.new("Frame")
                 local LabelText = Instance.new("TextLabel")
@@ -726,26 +724,13 @@ function Library:AddWindows()
                 LabelText.Name = "LabelText"
                 LabelText.Parent = Label
                 LabelText.BackgroundTransparency = 1.000
-                LabelText.Size = UDim2.new(1, -10, 1, 0)
-                LabelText.Position = UDim2.new(0, 5, 0, 0)
+                LabelText.Size = UDim2.new(1, 0, 1, 0)
                 LabelText.Font = Enum.Font.GothamBold
                 LabelText.Text = cffe.Text
-                LabelText.TextColor3 = cffe.TextColor
-                LabelText.TextSize = cffe.TextSize
+                LabelText.TextColor3 = Color3.fromRGB(200, 200, 200)
+                LabelText.TextSize = 13
                 LabelText.TextXAlignment = Enum.TextXAlignment.Left
                 LabelText.TextWrapped = true
-
-                local LabelFunc = {}
-
-                function LabelFunc:Set(newText)
-                    LabelText.Text = newText
-                end
-
-                function LabelFunc:SetColor(newColor)
-                    LabelText.TextColor3 = newColor
-                end
-
-                return LabelFunc
             end
 
             function Sec:AddButton(cffe)
