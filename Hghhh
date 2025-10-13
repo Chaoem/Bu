@@ -8,8 +8,8 @@ local RunService = game:GetService("RunService")
 -- CONFIG: here
 -- ============================================
 local UI_CONFIG = {
-    LogoAssetId = "rbxassetid://108406664079308",
-    CloseButtonAssetId = "rbxassetid://108406664079308"
+    LogoAssetId = "rbxassetid://6023426923",
+    CloseButtonAssetId = "rbxassetid://6023426923"
 }
 
 -- ============================================
