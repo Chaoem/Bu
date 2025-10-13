@@ -1,4 +1,3 @@
-print("Executed - Maru UI Modified")
 local TweenService = game:service"TweenService"
 local plr = game.Players.LocalPlayer
 local uis = game:GetService("UserInputService")
@@ -9,8 +8,8 @@ local RunService = game:GetService("RunService")
 -- CONFIG: here
 -- ============================================
 local UI_CONFIG = {
-    LogoAssetId = "rbxassetid://116687528225948",
-    CloseButtonAssetId = "rbxassetid://77914344378314"
+    LogoAssetId = "rbxassetid://112110708081101",
+    CloseButtonAssetId = "rbxassetid://112110708081101"
 }
 
 -- ============================================
@@ -1412,20 +1411,7 @@ plr.CharacterAdded:Connect(function()
     
     local existingUI = ParentGui:FindFirstChild("ScreenShit_Protected")
     if existingUI then
-        print("[Maru UI] Character respawned - UI still exists!")
-        
-        Library:AddNotify({
-            Title = "Respawn Detected",
-            Content = "UI vẫn còn nguyên sau khi respawn!",
-            Time = 3
-        })
     end
 end)
-
-print("[Maru UI Modified] Loaded successfully!")
-print("Features:")
-print("✓ Respawn Protection - UI không mất khi chết")
-print("✓ Custom Logo Support - Dùng Library:SetLogo('rbxassetid://...')")
-print("✓ Protected from deletion")
 
 return Library
