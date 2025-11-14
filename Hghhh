@@ -1099,11 +1099,12 @@ function Sec:AddDropdown(cffe)
     return DropFunc
 end
 
+-- THÊM FUNCTION NÀY VÀO TRONG Sec (ở dưới AddDropdown)
 function Sec:AddMultiDropdown(cffe)
     cffe = cffe or {}
     cffe.Name = cffe.Name or "Multi Dropdown"
     cffe.Options = cffe.Options or {}
-    cffe.Default = cffe.Default or ""
+    cffe.Default = cffe.Default or {}
     cffe.Callback = cffe.Callback or function() end
 
     local MultiDropdown = Instance.new("Frame")
@@ -1121,7 +1122,6 @@ function Sec:AddMultiDropdown(cffe)
     local Clicked_4 = Instance.new("TextButton")
     local MultiDropFunc = {}
     local SelectedValues = {}
-    local CurrentValue = ""  -- Giá trị string hiện tại
 
     Clicked_4.Name = "Clicked"
     Clicked_4.Parent = MultiDropdown
@@ -1184,7 +1184,7 @@ function Sec:AddMultiDropdown(cffe)
     SelectText.Position = UDim2.new(0, 10, 0, 0)
     SelectText.Size = UDim2.new(1, 0, 1, 0)
     SelectText.FontFace = Font.new([[rbxasset://fonts/families/Arial.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    SelectText.Text = cffe.Default
+    SelectText.Text = "None"
     SelectText.TextColor3 = Color3.fromRGB(188, 188, 188)
     SelectText.TextSize = 14.000
     SelectText.TextWrapped = true
@@ -1230,14 +1230,11 @@ function Sec:AddMultiDropdown(cffe)
 
     local function UpdateText()
         if #SelectedValues == 0 then
-            SelectText.Text = ""
-            CurrentValue = ""
+            SelectText.Text = "None"
         elseif #SelectedValues == 1 then
             SelectText.Text = SelectedValues[1]
-            CurrentValue = SelectedValues[1]
         else
             SelectText.Text = #SelectedValues .. " Selected"
-            CurrentValue = SelectedValues[#SelectedValues]  -- Lấy item cuối cùng
         end
     end
 
@@ -1330,13 +1327,13 @@ function Sec:AddMultiDropdown(cffe)
                 end
                 
                 UpdateText()
-                -- TRẢ VỀ STRING ĐƠN - GIỐNG SINGLEDROPDOWN
-                pcall(cffe.Callback, CurrentValue)
+                -- TRẢ VỀ ARRAY
+                pcall(cffe.Callback, SelectedValues)
             end)
         end
     end
 
-    function MultiDropFunc:Set(acc)
+    function MultiDropFunc:Set(Values)
         -- Clear tất cả
         SelectedValues = {}
         for i, v in pairs(Listed_2:GetChildren()) do
@@ -1347,18 +1344,20 @@ function Sec:AddMultiDropdown(cffe)
             end
         end
         
-        -- Set giá trị mới
-        for i, v in pairs(Listed_2:GetChildren()) do
-            if v.Name == "Options" and v.Title.Text == acc then
-                table.insert(SelectedValues, acc)
-                v.CheckBox.BackgroundColor3 = Color3.fromRGB(58, 147, 255)
-                v.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-                TweenService:Create(v.CheckBox.Checkmark, TweenInfo.new(.2, Enum.EasingStyle.Quad), {Size = UDim2.new(0, 12, 0, 12)}):Play()
+        -- Set values mới
+        for _, value in pairs(Values) do
+            for i, v in pairs(Listed_2:GetChildren()) do
+                if v.Name == "Options" and v.Title.Text == value then
+                    table.insert(SelectedValues, value)
+                    v.CheckBox.BackgroundColor3 = Color3.fromRGB(58, 147, 255)
+                    v.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    TweenService:Create(v.CheckBox.Checkmark, TweenInfo.new(.2, Enum.EasingStyle.Quad), {Size = UDim2.new(0, 12, 0, 12)}):Play()
+                end
             end
         end
         
         UpdateText()
-        pcall(cffe.Callback, CurrentValue)
+        pcall(cffe.Callback, SelectedValues)
     end
 
     function MultiDropFunc:Refresh(Options)
@@ -1369,12 +1368,11 @@ function Sec:AddMultiDropdown(cffe)
         end
         SelectedValues = {}
         MultiDropFunc:Add(Options)
-        SelectText.Text = ""
-        CurrentValue = ""
+        UpdateText()
     end
 
     MultiDropFunc:Refresh(cffe.Options)
-    if cffe.Default ~= "" then
+    if #cffe.Default > 0 then
         MultiDropFunc:Set(cffe.Default)
     end
     
