@@ -1067,203 +1067,311 @@ function Library:AddWindows()
                 return DropFunc
             end
 
-            function Sec:AddMultiDropdown(cffe)
+            -- Thêm function này vào trong function Sec (sau AddDropdown)
+function Sec:AddMultiDropdown(cffe)
     cffe = cffe or {}
     cffe.Name = cffe.Name or "Multi Dropdown"
     cffe.Options = cffe.Options or {}
     cffe.Default = cffe.Default or {}
     cffe.Callback = cffe.Callback or function() end
 
-    local Dropdown = Instance.new("Frame")
-    local UICorner = Instance.new("UICorner")
-    local Title = Instance.new("TextLabel")
+    local MultiDropdown = Instance.new("Frame")
+    local UICorner_14 = Instance.new("UICorner")
+    local Title_4 = Instance.new("TextLabel")
     local SelectFrame = Instance.new("Frame")
-    local UIStroke = Instance.new("UIStroke")
+    local UICorner_15 = Instance.new("UICorner")
+    local UIStroke_5 = Instance.new("UIStroke")
     local SelectText = Instance.new("TextLabel")
     local DropList = Instance.new("Frame")
-    local UICornerList = Instance.new("UICorner")
-    local Listed = Instance.new("ScrollingFrame")
-    local UIListLayout = Instance.new("UIListLayout")
-    local UIPadding = Instance.new("UIPadding")
-    local Clicked = Instance.new("TextButton")
+    local UICorner_16 = Instance.new("UICorner")
+    local Listed_2 = Instance.new("ScrollingFrame")
+    local UIListLayout_4 = Instance.new("UIListLayout")
+    local UIPadding_4 = Instance.new("UIPadding")
+    local Clicked_4 = Instance.new("TextButton")
+    local MultiDropFunc = {}
+    
+    -- Table để lưu các option đã chọn
+    local SelectedOptions = {}
 
-    Dropdown.Name = "MultiDropdown"
-    Dropdown.Parent = Listed or Section -- tùy nơi bạn muốn gắn
-    Dropdown.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Dropdown.Size = UDim2.new(1, 0, 0, 35)
+    Clicked_4.Name = "Clicked"
+    Clicked_4.Parent = MultiDropdown
+    Clicked_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Clicked_4.BackgroundTransparency = 1.000
+    Clicked_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Clicked_4.BorderSizePixel = 0
+    Clicked_4.Size = UDim2.new(1, 0, 1, 0)
+    Clicked_4.Font = Enum.Font.SourceSans
+    Clicked_4.Text = ""
+    Clicked_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+    Clicked_4.TextSize = 14.000
 
-    UICorner.CornerRadius = UDim.new(0, 4)
-    UICorner.Parent = Dropdown
-
-    Title.Name = "Title"
-    Title.Parent = Dropdown
-    Title.BackgroundTransparency = 1
-    Title.Position = UDim2.new(0, 10, 0, 0)
-    Title.Size = UDim2.new(1, -92, 1, 0)
-    Title.Font = Enum.Font.ArialBold
-    Title.Text = cffe.Name
-    Title.TextColor3 = Color3.fromRGB(144, 144, 144)
-    Title.TextSize = 13
-    Title.TextXAlignment = Enum.TextXAlignment.Left
-
+    MultiDropdown.Name = "MultiDropdown"
+    MultiDropdown.Parent = Listed
+    MultiDropdown.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    MultiDropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MultiDropdown.BorderSizePixel = 0
+    MultiDropdown.Size = UDim2.new(1, 0, 0, 35)
+    
+    UICorner_14.CornerRadius = UDim.new(0, 4)
+    UICorner_14.Parent = MultiDropdown
+    
+    Title_4.Name = "Title"
+    Title_4.Parent = MultiDropdown
+    Title_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title_4.BackgroundTransparency = 1.000
+    Title_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Title_4.BorderSizePixel = 0
+    Title_4.Position = UDim2.new(0, 10, 0, 0)
+    Title_4.Size = UDim2.new(1, -92, 1, 0)
+    Title_4.Font = Enum.Font.ArialBold
+    Title_4.Text = cffe.Name
+    Title_4.TextColor3 = Color3.fromRGB(144, 144, 144)
+    Title_4.TextSize = 13.000
+    Title_4.TextXAlignment = Enum.TextXAlignment.Left
+    
     SelectFrame.Name = "SelectFrame"
-    SelectFrame.Parent = Dropdown
-    SelectFrame.BackgroundTransparency = 1
-    SelectFrame.Position = UDim2.new(0.5, -50, 0.2, 0)
+    SelectFrame.Parent = MultiDropdown
+    SelectFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    SelectFrame.BackgroundTransparency = 1.000
+    SelectFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    SelectFrame.BorderSizePixel = 0
+    SelectFrame.Position = UDim2.new(0.488148302, 0, 0.200000003, 0)
     SelectFrame.Size = UDim2.new(0, 100, 0, 22)
-
-    UIStroke.Parent = SelectFrame
-    UIStroke.Color = Color3.fromRGB(255, 255, 255)
-    UIStroke.Transparency = 0.87
-
+    
+    UICorner_15.CornerRadius = UDim.new(0, 4)
+    UICorner_15.Parent = SelectFrame
+    
+    UIStroke_5.Parent = SelectFrame
+    UIStroke_5.Color = Color3.fromRGB(255, 255, 255)
+    UIStroke_5.Transparency = 0.870
+    
     SelectText.Name = "SelectText"
     SelectText.Parent = SelectFrame
-    SelectText.BackgroundTransparency = 1
+    SelectText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    SelectText.BackgroundTransparency = 1.000
+    SelectText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    SelectText.BorderSizePixel = 0
+    SelectText.Position = UDim2.new(0, 10, 0, 0)
     SelectText.Size = UDim2.new(1, 0, 1, 0)
     SelectText.FontFace = Font.new([[rbxasset://fonts/families/Arial.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-    SelectText.Text = table.concat(cffe.Default, ", ")
+    SelectText.Text = "None"
     SelectText.TextColor3 = Color3.fromRGB(188, 188, 188)
-    SelectText.TextSize = 14
-    SelectText.TextXAlignment = Enum.TextXAlignment.Left
+    SelectText.TextSize = 14.000
     SelectText.TextWrapped = true
+    SelectText.TextXAlignment = Enum.TextXAlignment.Left
 
     DropList.Name = "DropList"
-    DropList.Parent = Dropdown
+    DropList.Parent = Listed
     DropList.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    DropList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    DropList.BorderSizePixel = 0
     DropList.Size = UDim2.new(1, 0, 0, 121)
     DropList.Visible = false
+    
+    UICorner_16.CornerRadius = UDim.new(0, 4)
+    UICorner_16.Parent = DropList
+    
+    Listed_2.Name = "Listed"
+    Listed_2.Parent = DropList
+    Listed_2.AnchorPoint = Vector2.new(0.5, 0.5)
+    Listed_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Listed_2.BackgroundTransparency = 1.000
+    Listed_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Listed_2.BorderSizePixel = 0
+    Listed_2.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Listed_2.Size = UDim2.new(1, -5, 1, -5)
+    Listed_2.ScrollBarThickness = 0
+    
+    UIListLayout_4.Parent = Listed_2
+    UIListLayout_4.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout_4.Padding = UDim.new(0, 7)
+    
+    UIPadding_4.Parent = Listed_2
+    UIPadding_4.PaddingBottom = UDim.new(0, 4)
+    UIPadding_4.PaddingLeft = UDim.new(0, 4)
+    UIPadding_4.PaddingRight = UDim.new(0, 4)
+    UIPadding_4.PaddingTop = UDim.new(0, 4)
 
-    UICornerList.CornerRadius = UDim.new(0, 4)
-    UICornerList.Parent = DropList
+    RunService.Stepped:Connect(function()
+        pcall(function()
+            Listed_2.CanvasSize = UDim2.new(0, 0, 0, UIListLayout_4.AbsoluteContentSize.Y + 20)
+        end)
+    end)
 
-    Listed.Name = "Listed"
-    Listed.Parent = DropList
-    Listed.BackgroundTransparency = 1
-    Listed.Size = UDim2.new(1, -5, 1, -5)
-    Listed.ScrollBarThickness = 0
+    -- Function để update text hiển thị
+    local function UpdateText()
+        if #SelectedOptions == 0 then
+            SelectText.Text = "None"
+        elseif #SelectedOptions == 1 then
+            SelectText.Text = SelectedOptions[1]
+        else
+            SelectText.Text = SelectedOptions[1] .. " +" .. (#SelectedOptions - 1)
+        end
+    end
 
-    UIListLayout.Parent = Listed
-    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    UIListLayout.Padding = UDim.new(0, 7)
-
-    UIPadding.Parent = Listed
-    UIPadding.PaddingTop = UDim.new(0, 4)
-    UIPadding.PaddingBottom = UDim.new(0, 4)
-    UIPadding.PaddingLeft = UDim.new(0, 4)
-    UIPadding.PaddingRight = UDim.new(0, 4)
-
-    Clicked.Name = "Clicked"
-    Clicked.Parent = Dropdown
-    Clicked.BackgroundTransparency = 1
-    Clicked.Size = UDim2.new(1, 0, 1, 0)
-    Clicked.Text = ""
-
-    Clicked.Activated:Connect(function()
+    Clicked_4.Activated:Connect(function()
         DropList.Visible = not DropList.Visible
     end)
 
-    local DropFunc = {}
-    local selected = {}
-
-    function DropFunc:Add(list)
-        for _, v in next, list do
-            local Option = Instance.new("Frame")
-            local UICornerOpt = Instance.new("UICorner")
-            local TitleOpt = Instance.new("TextLabel")
-            local Check = Instance.new("Frame")
-            local CheckFill = Instance.new("Frame")
+    function MultiDropFunc:Add(Value)
+        for _, v in next, Value do
+            local Options = Instance.new("Frame")
+            local UICorner_17 = Instance.new("UICorner")
+            local Title_5 = Instance.new("TextLabel")
+            local CheckBox = Instance.new("Frame")
+            local UICorner_18 = Instance.new("UICorner")
+            local UIStroke_Check = Instance.new("UIStroke")
+            local CheckMark = Instance.new("Frame")
+            local UICorner_19 = Instance.new("UICorner")
             local TextButton = Instance.new("TextButton")
 
-            Option.Name = "Option"
-            Option.Parent = Listed
-            Option.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-            Option.Size = UDim2.new(1, 0, 0, 25)
-
-            UICornerOpt.CornerRadius = UDim.new(0, 4)
-            UICornerOpt.Parent = Option
-
-            TitleOpt.Name = "Title"
-            TitleOpt.Parent = Option
-            TitleOpt.BackgroundTransparency = 1
-            TitleOpt.Position = UDim2.new(0, 15, 0, 0)
-            TitleOpt.Size = UDim2.new(1, -35, 1, 0)
-            TitleOpt.Font = Enum.Font.GothamBold
-            TitleOpt.Text = tostring(v)
-            TitleOpt.TextColor3 = Color3.fromRGB(177, 177, 177)
-            TitleOpt.TextSize = 13
-            TitleOpt.TextXAlignment = Enum.TextXAlignment.Left
-
-            Check.Name = "Check"
-            Check.Parent = Option
-            Check.AnchorPoint = Vector2.new(1, 0.5)
-            Check.Position = UDim2.new(1, -10, 0.5, 0)
-            Check.Size = UDim2.new(0, 14, 0, 14)
-            Check.BackgroundColor3 = Color3.fromRGB(59, 59, 59)
-
-            CheckFill.Name = "Fill"
-            CheckFill.Parent = Check
-            CheckFill.AnchorPoint = Vector2.new(0.5, 0.5)
-            CheckFill.Position = UDim2.new(0.5, 0, 0.5, 0)
-            CheckFill.Size = UDim2.new(0, 0, 0, 0)
-            CheckFill.BackgroundColor3 = Color3.fromRGB(65, 115, 196)
-
-            TextButton.Parent = Option
-            TextButton.BackgroundTransparency = 1
+            Options.Name = "Options"
+            Options.Parent = Listed_2
+            Options.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+            Options.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Options.BorderSizePixel = 0
+            Options.Size = UDim2.new(1, 0, 0, 25)
+            
+            UICorner_17.CornerRadius = UDim.new(0, 4)
+            UICorner_17.Parent = Options
+            
+            Title_5.Name = "Title"
+            Title_5.Parent = Options
+            Title_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Title_5.BackgroundTransparency = 1.000
+            Title_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            Title_5.BorderSizePixel = 0
+            Title_5.Position = UDim2.new(0, 35, 0, 0)
+            Title_5.Size = UDim2.new(1, -35, 1, 0)
+            Title_5.Font = Enum.Font.GothamBold
+            Title_5.Text = tostring(v)
+            Title_5.TextColor3 = Color3.fromRGB(177, 177, 177)
+            Title_5.TextSize = 13.000
+            Title_5.TextXAlignment = Enum.TextXAlignment.Left
+            
+            -- CheckBox
+            CheckBox.Name = "CheckBox"
+            CheckBox.Parent = Options
+            CheckBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+            CheckBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            CheckBox.BorderSizePixel = 0
+            CheckBox.Position = UDim2.new(0, 8, 0, 4)
+            CheckBox.Size = UDim2.new(0, 17, 0, 17)
+            
+            UICorner_18.CornerRadius = UDim.new(0, 3)
+            UICorner_18.Parent = CheckBox
+            
+            UIStroke_Check.Parent = CheckBox
+            UIStroke_Check.Color = Color3.fromRGB(255, 255, 255)
+            UIStroke_Check.Transparency = 0.870
+            
+            -- CheckMark (dấu tick)
+            CheckMark.Name = "CheckMark"
+            CheckMark.Parent = CheckBox
+            CheckMark.AnchorPoint = Vector2.new(0.5, 0.5)
+            CheckMark.BackgroundColor3 = Color3.fromRGB(65, 115, 196)
+            CheckMark.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            CheckMark.BorderSizePixel = 0
+            CheckMark.Position = UDim2.new(0.5, 0, 0.5, 0)
+            CheckMark.Size = UDim2.new(0, 0, 0, 0)
+            CheckMark.Visible = false
+            
+            UICorner_19.CornerRadius = UDim.new(0, 2)
+            UICorner_19.Parent = CheckMark
+            
+            TextButton.Parent = Options
+            TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            TextButton.BackgroundTransparency = 1.000
+            TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            TextButton.BorderSizePixel = 0
             TextButton.Size = UDim2.new(1, 0, 1, 0)
+            TextButton.Font = Enum.Font.SourceSans
             TextButton.Text = ""
+            TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+            TextButton.TextSize = 14.000
 
             TextButton.Activated:Connect(function()
-                local already = table.find(selected, v)
-                if already then
-                    table.remove(selected, already)
-                    TweenService:Create(CheckFill, TweenInfo.new(.2), {Size = UDim2.new(0, 0, 0, 0)}):Play()
-                    TitleOpt.TextColor3 = Color3.fromRGB(177, 177, 177)
+                local optionName = Title_5.Text
+                local isSelected = table.find(SelectedOptions, optionName)
+                
+                if isSelected then
+                    -- Bỏ chọn
+                    table.remove(SelectedOptions, isSelected)
+                    CheckMark.Visible = false
+                    TweenService:Create(CheckMark, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+                    Title_5.TextColor3 = Color3.fromRGB(177, 177, 177)
                 else
-                    table.insert(selected, v)
-                    TweenService:Create(CheckFill, TweenInfo.new(.2), {Size = UDim2.new(1, 0, 1, 0)}):Play()
-                    TitleOpt.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    -- Chọn
+                    table.insert(SelectedOptions, optionName)
+                    CheckMark.Visible = true
+                    TweenService:Create(CheckMark, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 13, 0, 13)}):Play()
+                    Title_5.TextColor3 = Color3.fromRGB(255, 255, 255)
                 end
-                SelectText.Text = table.concat(selected, ", ")
-                pcall(cffe.Callback, selected)
+                
+                UpdateText()
+                pcall(cffe.Callback, SelectedOptions)
             end)
         end
     end
 
-    function DropFunc:Set(list)
-        selected = {}
-        for _, v in pairs(Listed:GetChildren()) do
-            if v:IsA("Frame") and v:FindFirstChild("Title") then
-                local t = v.Title.Text
-                local checkFill = v.Check.Fill
-                if table.find(list, t) then
-                    table.insert(selected, t)
-                    TweenService:Create(checkFill, TweenInfo.new(.2), {Size = UDim2.new(1, 0, 1, 0)}):Play()
-                    v.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-                else
-                    TweenService:Create(checkFill, TweenInfo.new(.2), {Size = UDim2.new(0, 0, 0, 0)}):Play()
-                    v.Title.TextColor3 = Color3.fromRGB(177, 177, 177)
+    function MultiDropFunc:Set(Values)
+        -- Clear tất cả selections
+        SelectedOptions = {}
+        
+        for i, v in pairs(Listed_2:GetChildren()) do
+            if v.Name == "Options" then
+                local CheckMark = v.CheckBox.CheckMark
+                CheckMark.Visible = false
+                CheckMark.Size = UDim2.new(0, 0, 0, 0)
+                v.Title.TextColor3 = Color3.fromRGB(177, 177, 177)
+                
+                -- Kiểm tra nếu option này có trong Values
+                for _, value in pairs(Values) do
+                    if v.Title.Text == value then
+                        table.insert(SelectedOptions, value)
+                        CheckMark.Visible = true
+                        CheckMark.Size = UDim2.new(0, 13, 0, 13)
+                        v.Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    end
                 end
             end
         end
-        SelectText.Text = table.concat(selected, ", ")
-        pcall(cffe.Callback, selected)
+        
+        UpdateText()
+        pcall(cffe.Callback, SelectedOptions)
     end
 
-    function DropFunc:Refresh(list)
-        for _, v in pairs(Listed:GetChildren()) do
-            if v.Name == "Option" then
+    function MultiDropFunc:Refresh(Options)
+        for i, v in pairs(Listed_2:GetChildren()) do
+            if v.Name == "Options" then
                 v:Destroy()
             end
         end
-        selected = {}
-        DropFunc:Add(list)
-        SelectText.Text = ""
+        SelectedOptions = {}
+        MultiDropFunc:Add(Options)
+        UpdateText()
+    end
+    
+    function MultiDropFunc:Clear()
+        SelectedOptions = {}
+        for i, v in pairs(Listed_2:GetChildren()) do
+            if v.Name == "Options" then
+                local CheckMark = v.CheckBox.CheckMark
+                CheckMark.Visible = false
+                TweenService:Create(CheckMark, TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 0)}):Play()
+                v.Title.TextColor3 = Color3.fromRGB(177, 177, 177)
+            end
+        end
+        UpdateText()
+        pcall(cffe.Callback, SelectedOptions)
     end
 
-    DropFunc:Add(cffe.Options)
-    DropFunc:Set(cffe.Default)
-
-    return DropFunc
+    MultiDropFunc:Refresh(cffe.Options)
+    if cffe.Default and #cffe.Default > 0 then
+        MultiDropFunc:Set(cffe.Default)
+    end
+    
+    return MultiDropFunc
 end
 
             function Sec:AddSlider(cffe)
