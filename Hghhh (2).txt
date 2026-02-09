@@ -1584,31 +1584,34 @@ end
     local UIStroke_Label = Instance.new("UIStroke")
     local LabelText = Instance.new("TextLabel")
 
-    Label.Name = "Label"
-    Label.Parent = Listed
-    Label.BackgroundColor3 = Color3.fromRGB(25, 25, 25) -- Màu nhạt hơn button
+    Label.Name = "BreakLabel"
+
+    -- 🔥 QUAN TRỌNG: KHÔNG parent vào Listed (Section)
+    Label.Parent = TabListed  -- hoặc Tab.Container / Tab.List tùy lib bạn
+
+    Label.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     Label.BorderSizePixel = 0
-    Label.Size = UDim2.new(1, 0, 0, 24)
+    Label.Size = UDim2.new(1, -8, 0, 24) -- trừ padding cho đẹp
+    Label.LayoutOrder = 9999 -- đảm bảo nằm dưới section hiện tại
 
     UICorner_Label.CornerRadius = UDim.new(0, 4)
     UICorner_Label.Parent = Label
 
     UIStroke_Label.Parent = Label
     UIStroke_Label.Color = Color3.fromRGB(255, 255, 255)
-    UIStroke_Label.Transparency = 0.985 -- Stroke rất mờ
+    UIStroke_Label.Transparency = 0.985
     UIStroke_Label.Thickness = 1
 
     LabelText.Name = "LabelText"
     LabelText.Parent = Label
     LabelText.BackgroundTransparency = 1
     LabelText.Size = UDim2.new(1, 0, 1, 0)
-    LabelText.Position = UDim2.new(0, 0, 0, 0)
     LabelText.Font = Enum.Font.GothamSemibold
     LabelText.Text = cffe.Text
     LabelText.TextColor3 = Color3.fromRGB(160, 160, 160)
     LabelText.TextSize = 12
-    LabelText.TextXAlignment = Enum.TextXAlignment.Center -- GIỮA
-    LabelText.TextYAlignment = Enum.TextYAlignment.Center -- CHO ĐỒNG BỘ
+    LabelText.TextXAlignment = Enum.TextXAlignment.Center
+    LabelText.TextYAlignment = Enum.TextYAlignment.Center
 end
 
             function Sec:AddInput(cffe)
