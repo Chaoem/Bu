@@ -1575,41 +1575,34 @@ end
                 return ParaFunc
             end
 
-function Sec:AddLabel(text)
-    text = text or "Label"
+            function Sec:AddLabel(text)
+                text = text or "Label"
 
-    -- CONTAINER (Để UIListLayout trong Section quản lý vị trí)
-    local LabelWrap = Instance.new("Frame")
-    LabelWrap.Name = "LabelWrap"
-    LabelWrap.Parent = Listed -- 'Listed' là biến chứa các element trong Section của bạn
-    LabelWrap.BackgroundTransparency = 1
-    LabelWrap.Size = UDim2.new(1, 0, 0, 20) -- Độ cao của label
+                -- Wrapper để UIListLayout của Section nhận diện
+                local LabelFrame = Instance.new("Frame")
+                LabelFrame.Name = "LabelElement"
+                LabelFrame.Parent = Listed -- BẮT BUỘC phải là Listed
+                LabelFrame.BackgroundTransparency = 1
+                LabelFrame.Size = UDim2.new(1, 0, 0, 20) -- Độ cao của dòng label
 
-    -- TEXT
-    local Label = Instance.new("TextLabel")
-    Label.Name = "Label"
-    Label.Parent = LabelWrap
-    Label.BackgroundTransparency = 1
-    Label.Size = UDim2.new(1, -12, 1, 0)
-    Label.Position = UDim2.new(0, 6, 0, 0)
-    
-    -- CẤU HÌNH THEO PHONG CÁCH ——— TEXT ———
-    Label.Font = Enum.Font.GothamBold
-    Label.Text = "——— " .. text .. " ———"
-    Label.TextSize = 11
-    Label.TextColor3 = Color3.fromRGB(160, 160, 160) -- Màu xám nhẹ
-    
-    Label.TextXAlignment = Enum.TextXAlignment.Center -- Căn giữa
-    Label.TextYAlignment = Enum.TextYAlignment.Center
-    Label.RichText = true
+                local Label = Instance.new("TextLabel")
+                Label.Name = "Text"
+                Label.Parent = LabelFrame
+                Label.BackgroundTransparency = 1
+                Label.Size = UDim2.new(1, 0, 1, 0)
+                
+                -- Style căn giữa có gạch ngang
+                Label.Font = Enum.Font.GothamBold
+                Label.Text = "——— " .. text .. " ———"
+                Label.TextColor3 = Color3.fromRGB(160, 160, 160)
+                Label.TextSize = 11
+                
+                Label.TextXAlignment = Enum.TextXAlignment.Center -- Căn giữa nè
+                Label.TextYAlignment = Enum.TextYAlignment.Center
+                Label.RichText = true
 
-    -- Trả về object để bạn có thể đổi text sau này nếu muốn
-    local LabelFunc = {}
-    function LabelFunc:Set(newText)
-        Label.Text = "——— " .. newText .. " ———"
-    end
-    return LabelFunc
-end
+                return Label
+            end
 
             function Sec:AddInput(cffe)
                 cffe = cffe or {}
