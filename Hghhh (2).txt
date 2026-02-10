@@ -1588,7 +1588,6 @@ function Tab:AddInlineLabel(side, text)
 
     Label.BackgroundTransparency = 1
     Label.Size = UDim2.new(1, -12, 0, 20)
-    Label.Position = UDim2.new(0, 6, 0, 0)
 
     Label.Font = Enum.Font.GothamSemibold
     Label.Text = text
@@ -1597,6 +1596,9 @@ function Tab:AddInlineLabel(side, text)
 
     Label.TextXAlignment = Enum.TextXAlignment.Left
     Label.TextYAlignment = Enum.TextYAlignment.Center
+
+    Label.RichText = true
+    Label.TextWrapped = false
 
     return Label
 end
