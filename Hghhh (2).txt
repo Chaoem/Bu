@@ -1582,12 +1582,21 @@ function Tab:AddInlineLabel(side, text)
     local ParentColumn =
         (side == "Right" and self.Right) or self.Left
 
+    -- WRAPPER FRAME (để UIListLayout xử lý đúng)
+    local Wrap = Instance.new("Frame")
+    Wrap.Name = "InlineLabelWrap"
+    Wrap.Parent = ParentColumn
+    Wrap.BackgroundTransparency = 1
+    Wrap.Size = UDim2.new(1, 0, 0, 26)
+
+    -- LABEL
     local Label = Instance.new("TextLabel")
     Label.Name = "InlineLabel"
-    Label.Parent = ParentColumn
+    Label.Parent = Wrap
 
     Label.BackgroundTransparency = 1
-    Label.Size = UDim2.new(1, -12, 0, 20)
+    Label.Size = UDim2.new(1, -12, 1, 0)
+    Label.Position = UDim2.new(0, 6, 0, 0)
 
     Label.Font = Enum.Font.GothamSemibold
     Label.Text = text
@@ -1596,13 +1605,10 @@ function Tab:AddInlineLabel(side, text)
 
     Label.TextXAlignment = Enum.TextXAlignment.Left
     Label.TextYAlignment = Enum.TextYAlignment.Center
-
     Label.RichText = true
-    Label.TextWrapped = false
 
     return Label
 end
-
 
             function Sec:AddInput(cffe)
                 cffe = cffe or {}
