@@ -1575,40 +1575,42 @@ end
                 return ParaFunc
             end
 
-function Tab:AddInlineLabel(side, text)
-    side = side or "Left"
+function Tab:AddInlinefunction Sec:AddLabel(text)
     text = text or "Label"
 
-    local ParentColumn =
-        (side == "Right" and self.Right) or self.Left
+    -- CONTAINER (Để UIListLayout trong Section quản lý vị trí)
+    local LabelWrap = Instance.new("Frame")
+    LabelWrap.Name = "LabelWrap"
+    LabelWrap.Parent = Listed -- 'Listed' là biến chứa các element trong Section của bạn
+    LabelWrap.BackgroundTransparency = 1
+    LabelWrap.Size = UDim2.new(1, 0, 0, 20) -- Độ cao của label
 
-    -- WRAPPER FRAME (để UIListLayout xử lý đúng)
-    local Wrap = Instance.new("Frame")
-    Wrap.Name = "InlineLabelWrap"
-    Wrap.Parent = ParentColumn
-    Wrap.BackgroundTransparency = 1
-    Wrap.Size = UDim2.new(1, 0, 0, 26)
-
-    -- LABEL
+    -- TEXT
     local Label = Instance.new("TextLabel")
-    Label.Name = "InlineLabel"
-    Label.Parent = Wrap
-
+    Label.Name = "Label"
+    Label.Parent = LabelWrap
     Label.BackgroundTransparency = 1
     Label.Size = UDim2.new(1, -12, 1, 0)
     Label.Position = UDim2.new(0, 6, 0, 0)
-
-    Label.Font = Enum.Font.GothamSemibold
-    Label.Text = text
-    Label.TextSize = 12
-    Label.TextColor3 = Color3.fromRGB(150,150,150)
-
-    Label.TextXAlignment = Enum.TextXAlignment.Left
+    
+    -- CẤU HÌNH THEO PHONG CÁCH ——— TEXT ———
+    Label.Font = Enum.Font.GothamBold
+    Label.Text = "——— " .. text .. " ———"
+    Label.TextSize = 11
+    Label.TextColor3 = Color3.fromRGB(160, 160, 160) -- Màu xám nhẹ
+    
+    Label.TextXAlignment = Enum.TextXAlignment.Center -- Căn giữa
     Label.TextYAlignment = Enum.TextYAlignment.Center
     Label.RichText = true
 
-    return Label
+    -- Trả về object để bạn có thể đổi text sau này nếu muốn
+    local LabelFunc = {}
+    function LabelFunc:Set(newText)
+        Label.Text = "——— " .. newText .. " ———"
+    end
+    return LabelFunc
 end
+
 
             function Sec:AddInput(cffe)
                 cffe = cffe or {}
