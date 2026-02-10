@@ -1575,44 +1575,32 @@ end
                 return ParaFunc
             end
 
-            function Sec:AddLabel(cffe)
-    cffe = cffe or {}
-    cffe.Text = cffe.Text or "Label Text"
+function Tab:AddInlineLabel(side, text)
+    side = side or "Left"
+    text = text or "Label"
 
-    local Label = Instance.new("Frame")
-    local UICorner_Label = Instance.new("UICorner")
-    local UIStroke_Label = Instance.new("UIStroke")
-    local LabelText = Instance.new("TextLabel")
+    local ParentColumn =
+        (side == "Right" and self.Right) or self.Left
 
-    Label.Name = "BreakLabel"
+    local Label = Instance.new("TextLabel")
+    Label.Name = "InlineLabel"
+    Label.Parent = ParentColumn
 
-    -- 🔥 QUAN TRỌNG: KHÔNG parent vào Listed (Section)
-    Label.Parent = TabListed  -- hoặc Tab.Container / Tab.List tùy lib bạn
+    Label.BackgroundTransparency = 1
+    Label.Size = UDim2.new(1, -12, 0, 20)
+    Label.Position = UDim2.new(0, 6, 0, 0)
 
-    Label.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    Label.BorderSizePixel = 0
-    Label.Size = UDim2.new(1, -8, 0, 24) -- trừ padding cho đẹp
-    Label.LayoutOrder = 9999 -- đảm bảo nằm dưới section hiện tại
+    Label.Font = Enum.Font.GothamSemibold
+    Label.Text = text
+    Label.TextSize = 12
+    Label.TextColor3 = Color3.fromRGB(150,150,150)
 
-    UICorner_Label.CornerRadius = UDim.new(0, 4)
-    UICorner_Label.Parent = Label
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.TextYAlignment = Enum.TextYAlignment.Center
 
-    UIStroke_Label.Parent = Label
-    UIStroke_Label.Color = Color3.fromRGB(255, 255, 255)
-    UIStroke_Label.Transparency = 0.985
-    UIStroke_Label.Thickness = 1
-
-    LabelText.Name = "LabelText"
-    LabelText.Parent = Label
-    LabelText.BackgroundTransparency = 1
-    LabelText.Size = UDim2.new(1, 0, 1, 0)
-    LabelText.Font = Enum.Font.GothamSemibold
-    LabelText.Text = cffe.Text
-    LabelText.TextColor3 = Color3.fromRGB(160, 160, 160)
-    LabelText.TextSize = 12
-    LabelText.TextXAlignment = Enum.TextXAlignment.Center
-    LabelText.TextYAlignment = Enum.TextYAlignment.Center
+    return Label
 end
+
 
             function Sec:AddInput(cffe)
                 cffe = cffe or {}
