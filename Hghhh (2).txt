@@ -1575,32 +1575,48 @@ end
                 return ParaFunc
             end
 
-            function Sec:AddLabel(text)
-    text = text or "Label"
+            function Sec:AddLabel(cffe)
+    cffe = cffe or {}
+    cffe.Text = cffe.Text or "Label Text"
 
-    -- Wrapper để UIListLayout của Section nhận diện
-    local LabelFrame = Instance.new("Frame")
-    LabelFrame.Name = "LabelElement"
-    LabelFrame.Parent = Listed -- BẮT BUỘC phải là Listed
-    LabelFrame.BackgroundTransparency = 1
-    LabelFrame.Size = UDim2.new(1, 0, 0, 20)
+    local Label = Instance.new("Frame")
+    local UICorner_Label = Instance.new("UICorner")
+    local UIStroke_Label = Instance.new("UIStroke")
+    local LabelText = Instance.new("TextLabel")
 
-    local Label = Instance.new("TextLabel")
-    Label.Name = "Text"
-    Label.Parent = LabelFrame
-    Label.BackgroundTransparency = 1
-    Label.Size = UDim2.new(1, 0, 1, 0)
+    Label.Name = "Label"
+    Label.Parent = Listed -- BIẾN NÀY QUAN TRỌNG: Nó giúp Label nằm trong danh sách sắp xếp của Section
+    Label.BackgroundColor3 = Color3.fromRGB(25, 25, 25) 
+    Label.BackgroundTransparency = 0.5 -- Bạn có thể chỉnh độ trong suốt nếu muốn nhìn xịn hơn
+    Label.BorderSizePixel = 0
+    Label.Size = UDim2.new(1, 0, 0, 24)
 
-    -- Style
-    Label.Font = Enum.Font.GothamBold
-    Label.Text = "——— " .. text .. " ———"
-    Label.TextColor3 = Color3.fromRGB(160, 160, 160)
-    Label.TextSize = 11
-    Label.TextXAlignment = Enum.TextXAlignment.Center
-    Label.TextYAlignment = Enum.TextYAlignment.Center
-    Label.RichText = false -- bật true cũng được nhưng hiện tại không cần
+    UICorner_Label.CornerRadius = UDim.new(0, 4)
+    UICorner_Label.Parent = Label
 
-    return Label
+    UIStroke_Label.Parent = Label
+    UIStroke_Label.Color = Color3.fromRGB(255, 255, 255)
+    UIStroke_Label.Transparency = 0.985 
+    UIStroke_Label.Thickness = 1
+
+    LabelText.Name = "LabelText"
+    LabelText.Parent = Label
+    LabelText.BackgroundTransparency = 1
+    LabelText.Size = UDim2.new(1, 0, 1, 0)
+    LabelText.Font = Enum.Font.GothamSemibold
+    LabelText.Text = "——— " .. cffe.Text .. " ———" -- Style gạch ngang
+    LabelText.TextColor3 = Color3.fromRGB(160, 160, 160)
+    LabelText.TextSize = 11 -- Size nhỏ hơn chút nhìn sẽ sang hơn
+    LabelText.TextXAlignment = Enum.TextXAlignment.Center 
+    LabelText.TextYAlignment = Enum.TextYAlignment.Center
+    LabelText.RichText = true
+
+    -- Thêm return để nếu cần update text sau này có thể dùng: label:Set("New Text")
+    local labelFunc = {}
+    function labelFunc:Set(val)
+        LabelText.Text = "——— " .. val .. " ———"
+    end
+    return labelFunc
 end
 
             function Sec:AddInput(cffe)
