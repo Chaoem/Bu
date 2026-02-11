@@ -1576,33 +1576,32 @@ end
             end
 
             function Sec:AddLabel(text)
-                text = text or "Label"
+    text = text or "Label"
 
-                -- Wrapper để UIListLayout của Section nhận diện
-                local LabelFrame = Instance.new("Frame")
-                LabelFrame.Name = "LabelElement"
-                LabelFrame.Parent = Listed -- BẮT BUỘC phải là Listed
-                LabelFrame.BackgroundTransparency = 1
-                LabelFrame.Size = UDim2.new(1, 0, 0, 20) -- Độ cao của dòng label
+    -- Wrapper để UIListLayout của Section nhận diện
+    local LabelFrame = Instance.new("Frame")
+    LabelFrame.Name = "LabelElement"
+    LabelFrame.Parent = Listed -- BẮT BUỘC phải là Listed
+    LabelFrame.BackgroundTransparency = 1
+    LabelFrame.Size = UDim2.new(1, 0, 0, 20)
 
-                local Label = Instance.new("TextLabel")
-                Label.Name = "Text"
-                Label.Parent = LabelFrame
-                Label.BackgroundTransparency = 1
-                Label.Size = UDim2.new(1, 0, 1, 0)
-                
-                -- Style căn giữa có gạch ngang
-                Label.Font = Enum.Font.GothamBold
-                Label.Text = "——— " .. text .. " ———"
-                Label.TextColor3 = Color3.fromRGB(160, 160, 160)
-                Label.TextSize = 11
-                
-                Label.TextXAlignment = Enum.TextXAlignment.Center -- Căn giữa nè
-                Label.TextYAlignment = Enum.TextYAlignment.Center
-                Label.RichText = true
+    local Label = Instance.new("TextLabel")
+    Label.Name = "Text"
+    Label.Parent = LabelFrame
+    Label.BackgroundTransparency = 1
+    Label.Size = UDim2.new(1, 0, 1, 0)
 
-                return Label
-            end
+    -- Style
+    Label.Font = Enum.Font.GothamBold
+    Label.Text = "——— " .. text .. " ———"
+    Label.TextColor3 = Color3.fromRGB(160, 160, 160)
+    Label.TextSize = 11
+    Label.TextXAlignment = Enum.TextXAlignment.Center
+    Label.TextYAlignment = Enum.TextYAlignment.Center
+    Label.RichText = false -- bật true cũng được nhưng hiện tại không cần
+
+    return Label
+end
 
             function Sec:AddInput(cffe)
                 cffe = cffe or {}
